@@ -14,7 +14,7 @@ class Dashboard extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.notifications),
             onPressed: () {
-              // Open popover for notifications
+              _showNotificationsPopover(context);
             },
           ),
         ],
@@ -118,7 +118,57 @@ class Dashboard extends StatelessWidget {
                 );
               },
             ),
+            IconButton(
+              icon: Icon(Icons.nature),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SoilAnalysisPage()),
+                );
+              },
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void _showNotificationsPopover(BuildContext context) {
+    // Logic to show notifications popover
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Notifications"),
+          content: Text(
+              "No new notifications"), // Replace with actual notifications logic
+          actions: <Widget>[
+            TextButton(
+              child: Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class SoilAnalysisPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Know Your Soil'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Add logic to choose image from camera or gallery
+          },
+          child: Text('Choose Image'),
         ),
       ),
     );
