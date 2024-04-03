@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class NotificationsPage extends StatelessWidget {
+class MarketplacePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications'),
+        title: Text('Marketplace'),
       ),
       body: Center(
-        child: Text('This is the Notifications Page'),
+        child: Text('This is the Marketplace Page'),
       ),
     );
   }

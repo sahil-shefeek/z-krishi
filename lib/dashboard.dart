@@ -36,11 +36,11 @@ class Dashboard extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: Icon(Icons.notifications),
+              icon: Icon(Icons.storefront),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NotificationsPage()),
+                  MaterialPageRoute(builder: (context) => MarketplacePage()),
                 );
               },
             ),
