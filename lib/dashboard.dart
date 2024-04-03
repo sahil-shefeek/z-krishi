@@ -3,6 +3,7 @@ import 'home_page.dart';
 import 'search_page.dart';
 import 'notifications_page.dart';
 import 'profile_page.dart';
+import 'know_your_soil.dart'; // Import SoilAnalysisPage
 
 class Dashboard extends StatelessWidget {
   @override
@@ -152,25 +153,6 @@ class Dashboard extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-}
-
-class SoilAnalysisPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Know Your Soil'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // Add logic to choose image from camera or gallery
-          },
-          child: Text('Choose Image'),
-        ),
-      ),
     );
   }
 }
