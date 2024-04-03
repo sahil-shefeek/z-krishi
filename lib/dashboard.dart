@@ -10,11 +10,76 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Dashboard'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () {
+              // Open popover for notifications
+            },
+          ),
+        ],
       ),
-      body: Center(
-        child: Text(
-          'Welcome to the Dashboard!',
-          style: TextStyle(fontSize: 20.0),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 20.0),
+            Text(
+              'Welcome back!',
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20.0),
+            // Almanac Section
+            Container(
+              height: 150.0,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5, // Number of plants in almanac
+                itemBuilder: (BuildContext context, int index) {
+                  // Replace this with your card for each plant
+                  return Card(
+                    child: Center(
+                      child: Text('Plant $index'),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 20.0),
+            // Current Weather Section
+            Container(
+              height: 100.0,
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Card(
+                child: Center(
+                  child: Text('Current Weather'), // Replace with weather widget
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            // User's Current Plants Section
+            Container(
+              height: 200.0,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5, // Number of current plants
+                itemBuilder: (BuildContext context, int index) {
+                  // Replace this with your card for each current plant
+                  return Card(
+                    child: Center(
+                      child: Text('Current Plant $index'),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 20.0),
+            // Placeholder for other sections
+            Text(
+              'More sections can be added here...',
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: BottomAppBar(
