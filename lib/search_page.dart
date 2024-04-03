@@ -1,65 +1,112 @@
 import 'package:flutter/material.dart';
 
+class CommunityPost {
+  final String username;
+  final String profilePictureUrl;
+  final String caption;
+
+  CommunityPost({
+    required this.username,
+    required this.profilePictureUrl,
+    required this.caption,
+  });
+}
+
 class SearchPage extends StatefulWidget {
   @override
   _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-  TextEditingController _searchController = TextEditingController();
-  String _searchQuery = '';
+  // Mock list of community posts
+  List<CommunityPost> communityPosts = [
+    CommunityPost(
+      username: 'User1',
+      profilePictureUrl: 'profile1.jpg',
+      caption: 'First post caption',
+    ),
+    CommunityPost(
+      username: 'User2',
+      profilePictureUrl: 'profile2.jpg',
+      caption: 'Second post caption',
+    ),
+    // Add more posts as needed
+  ];
 
-  void _search() {
-    setState(() {
-      _searchQuery = _searchController.text;
-      // You can implement your search functionality here
-      // For now, let's just print the search query
-      print('Searching for: $_searchQuery');
-    });
-  }
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Community'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Handle search functionality
+            },
+          ),
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  hintText: 'Find a user',
-                  labelText: 'Enter Username',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0), // Rounded edges
-                  ),
-                ),
-                onChanged: (value) {
-                  // You can perform live search as the user types if needed
-                },
-              ),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: communityPosts.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == communityPosts.length) {
+                  return _buildProgressIndicator();
+                } else {
+                  return _buildPostItem(communityPosts[index]);
+                }
+              },
             ),
-            SizedBox(width: 10), // Add space between search bar and icon button
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: _search,
-              iconSize: 30,
-              color: Theme.of(context)
-                  .primaryColor, // Use the primary color of your theme
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-}
 
-void main() {
-  runApp(MaterialApp(
-    home: SearchPage(),
-  ));
+  Widget _buildPostItem(CommunityPost post) {
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: AssetImage(post.profilePictureUrl),
+      ),
+      title: Text(post.username),
+      subtitle: Text(post.caption),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: Icon(Icons.thumb_up),
+            onPressed: () {
+              // Handle like functionality
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.comment),
+            onPressed: () {
+              // Handle comment functionality
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.share),
+            onPressed: () {
+              // Handle share functionality
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
 }
