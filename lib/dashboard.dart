@@ -317,30 +317,45 @@ class Dashboard extends StatelessWidget {
               },
             ),
 
+            SizedBox(height: 20), // Add gap here
+
             // User's Current Plants Section
             Container(
-              height: 200.0,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: plants.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              AlmanacPage(plant: plants[index]),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      child: Center(
-                        child: Text('    ${plants[index].name}    '),
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: carouselItems.map((item) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width * 0.4, // Adjust the width as needed
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Color(0xFF033704), // #033704
+                        width: 2,
                       ),
                     ),
+                    child: Column(
+                      children: [
+                        Opacity(
+                          opacity: 0.3, // 30% opacity
+                          child: Image.network(
+                            item.imageUrl,
+                            width: MediaQuery.of(context).size.width * 0.3,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          item.caption,
+                          style: TextStyle(
+                            color: Color(0xFF033704), // #033704
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   );
-                },
+                }).toList(),
               ),
             ),
             // Placeholder for other sections
