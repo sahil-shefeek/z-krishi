@@ -263,40 +263,31 @@ class Dashboard extends StatelessWidget {
             ),
 
             // User's Current Plants Section
-            TitledContainer(
-              title: 'Almanac',
-              titleColor: Colors.blue, // Customize the title color
-              fontSize: 18.0, // Customize the title font size
-              backgroundColor:
-                  Colors.white, // Customize the background color of the title
-              textAlign: TextAlign.center, // Align the title text
-              child: Container(
-                height: 200.0,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: plants.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                AlmanacPage(plant: plants[index]),
-                          ),
-                        );
-                      },
-                      child: Card(
-                        child: Center(
-                          child: Text('${plants[index].name}'),
+            Container(
+              height: 200.0,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: plants.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              AlmanacPage(plant: plants[index]),
                         ),
+                      );
+                    },
+                    child: Card(
+                      child: Center(
+                        child: Text('    ${plants[index].name}    '),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ),
-
             // Placeholder for other sections
           ],
         ),
