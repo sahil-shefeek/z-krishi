@@ -117,6 +117,72 @@ class InteractableCard extends StatelessWidget {
   }
 }
 
+class LocationService {
+  Future<Position> getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled; don't continue
+      // accessing the position and request users to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied; don't continue accessing the position.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever; handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
+  }
+}
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  final LocationService _locationService = LocationService();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Fetch Location Example'),
+        ),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: () async {
+              try {
+                Position position = await _locationService.getCurrentLocation();
+                print(position); // Use the position or show it on your UI
+              } catch (e) {
+                print(e); // Handle the error
+              }
+            },
+            child: Text('Get Location'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class Dashboard extends StatelessWidget {
   final List<CarouselItem> carouselItems = [
     CarouselItem(
@@ -131,10 +197,14 @@ class Dashboard extends StatelessWidget {
       caption: 'Neem',
       nextWateringTime: 'In 3 days at 2 PM',
     ),
+    // Add more items as needed
   ];
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _fetchAndShowCurrentLocation(context));
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome back user!',
@@ -266,6 +336,29 @@ class Dashboard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _fetchAndShowCurrentLocation(BuildContext context) async {
+    try {
+      Position position = await _locationService.getCurrentLocation();
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Current Location"),
+          content:
+              Text("Lat: ${position.latitude}, Long: ${position.longitude}"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("Close"),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      print("Failed to get current location: $e");
+      // Handle error or notify the user
+    }
   }
 
   void _showNotificationsPopover(BuildContext context) {
