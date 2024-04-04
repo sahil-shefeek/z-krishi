@@ -163,24 +163,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Fetch Location Example'),
+      theme: ThemeData(
+        primaryColor: Color(0xFFE2B358), // #e2b358
+        scaffoldBackgroundColor: Color(0xFFFFFFFF), // white
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xFF14330A), // #14330a
         ),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () async {
-              try {
-                Position position = await _locationService.getCurrentLocation();
-                print(position); // Use the position or show it on your UI
-              } catch (e) {
-                print(e); // Handle the error
-              }
-            },
-            child: Text('Get Location'),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFFE2B358), // #e2b358
+            foregroundColor: Color(0xFF14330A), // #14330a
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           ),
         ),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(color: Color(0xFF14330A)), // #14330a
+          bodyText2: TextStyle(color: Color(0xFF14330A)), // #14330a
+        ),
       ),
+      home: Dashboard(),
     );
   }
 }

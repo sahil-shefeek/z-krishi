@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xFF14330A), // #14330a
-            foregroundColor:  Color(0xFFE2B358), // white text color
+            foregroundColor: Color(0xFFE2B358), // white text color
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           ),
         ),
@@ -72,23 +72,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(height: 20),
                 Text(
                   'John Doe',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color:Color(0xFF14330A)),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF14330A)),
                 ),
                 SizedBox(height: 10),
                 Text(
                   'john.doe@example.com',
-                  style: TextStyle(fontSize: 18, color:  Color(0xFFE2B358),),
+                  style: TextStyle(fontSize: 18, color: Color(0xFF14330A),), // Change email text color to #14330a
                 ),
                 SizedBox(height: 20),
                 if (widget.isInCommittee)
                   Text(
                     'Committee: ${widget.committeeName}',
-                    style: TextStyle(fontSize: 18, color: Color(0xFF14330A),),
+                    style: TextStyle(fontSize: 18, color: Color(0xFF14330A),), // Change text color to #14330a
                   ),
                 SizedBox(height: 20),
                 Text(
                   'Bio: This is a short bio about John Doe.',
-                  style: TextStyle(fontSize: 16, color: Color(0xFFE2B358),),
+                  style: TextStyle(fontSize: 16, color: Color(0xFF14330A),), // Change bio text color to #14330a
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20),
@@ -102,14 +102,20 @@ class _ProfilePageState extends State<ProfilePage> {
                           MaterialPageRoute(builder: (context) => GrownCropsHistoryPage()),
                         );
                       },
-                      child: Text('Grown Crops History'),
+                      child: Text('Grown Crops History', style: TextStyle(color: Color(0xFF14330A))), // Change button text color to #14330a
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFE2B358), // Change button color to #e2b358
+                      ),
                     ),
                     SizedBox(width: 20),
                     ElevatedButton(
                       onPressed: () {
                         _showCurrentPlantPhoto();
                       },
-                      child: Text('Current Growing Plant'),
+                      child: Text('Current Growing Plant', style: TextStyle(color: Color(0xFF14330A))), // Change button text color to #14330a
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFE2B358), // Change button color to #e2b358
+                      ),
                     ),
                   ],
                 ),
