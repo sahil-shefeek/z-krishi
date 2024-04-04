@@ -207,8 +207,25 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome back user!',
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFF14330A), // #14330a
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: EdgeInsets.all(10),
+            child: Text(
+              'Welcome back user!',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFE2B358), // #e2b358
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.notifications),
@@ -223,7 +240,9 @@ class Dashboard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              height: 220, // Set a fixed height for the carousel
+              color: Color(0xFFE2B358), // #e2b358
+              width: double.infinity,
+              padding: EdgeInsets.all(16),
               child: CarouselSlider.builder(
                 itemCount: carouselItems.length,
                 itemBuilder:
