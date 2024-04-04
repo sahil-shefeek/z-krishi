@@ -139,32 +139,85 @@ class _PostsPageState extends State<PostsPage> {
   }
 
   Widget _buildPostItem(CommunityPost post) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(post.profilePictureUrl),
-      ),
-      title: Text(post.username),
-      subtitle: Text(post.caption),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+    // Placeholder image URL for the user icon
+    final String placeholderImageUrl =
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReF9MbJyxKxJrvWKlm95sFTyoshI4-TLBKp3oOqho7MQ&s';
+
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          IconButton(
-            icon: Icon(Icons.thumb_up),
-            onPressed: () {
-              // Handle like functionality
-            },
+          // Post image
+          Container(
+            height: 200, // Adjust the height as needed
+            width: double.infinity,
+            child: Image.network(
+              post.profilePictureUrl,
+              fit: BoxFit.cover,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),
+                );
+              },
+            ),
           ),
-          IconButton(
-            icon: Icon(Icons.comment),
-            onPressed: () {
-              // Handle comment functionality
-            },
+          // User icon with a placeholder
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundImage: NetworkImage(
+                      post.profilePictureUrl.isNotEmpty
+                          ? post.profilePictureUrl
+                          : placeholderImageUrl),
+                ),
+                SizedBox(width: 8),
+                Text(post.username,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ],
+            ),
           ),
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () {
-              // Handle share functionality
-            },
+          // Post caption
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(post.caption),
+          ),
+          // Action buttons
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.thumb_up),
+                  onPressed: () {
+                    // Handle like functionality
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.comment),
+                  onPressed: () {
+                    // Handle comment functionality
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.share),
+                  onPressed: () {
+                    // Handle share functionality
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),
