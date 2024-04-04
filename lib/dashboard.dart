@@ -227,11 +227,33 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {
-              _showNotificationsPopover(context);
-            },
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.notifications),
+                  onPressed: () {
+                    _showNotificationsPopover(context);
+                  },
+                ),
+                Positioned(
+                  right: 8,
+                  top: 8,
+                  child: Container(
+                    width: 16,
+                    height: 16,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Color(0xFFE2B358), // #e2b358
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -259,17 +281,30 @@ class Dashboard extends StatelessWidget {
               ),
             ),
 
+            SizedBox(height: 20), // Add gap here
+
             FutureBuilder<Weather>(
               future: fetchWeather(context), // Pass the context here
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return SizedBox(
-                    height: 100.0,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Card(
-                      child: Center(
-                        child: Text(
-                            'Current Weather: ${snapshot.data!.temperature}°C, ${snapshot.data!.description}'),
+                    height: 80.0,
+                    width: MediaQuery.of(context).size.width * 0.6, // Adjust the width as needed
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color(0xFF033704), // #033704
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Card(
+                        elevation: 0, // Remove elevation to maintain a flat appearance
+                        child: Center(
+                          child: Text(
+                            'Current Weather: ${snapshot.data!.temperature}°C, ${snapshot.data!.description}',
+                          ),
+                        ),
                       ),
                     ),
                   );
