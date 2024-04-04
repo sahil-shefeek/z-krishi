@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-import 'search_page.dart';
+import 'posts_page.dart';
 import 'notifications_page.dart';
 import 'profile_page.dart';
 import 'know_your_soil.dart'; // Import SoilAnalysisPage
@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'almanac_page.dart';
+import 'package:flutter_titled_container/flutter_titled_container.dart';
 
 class CarouselItem {
   final String imageUrl;
@@ -261,26 +263,41 @@ class Dashboard extends StatelessWidget {
             ),
 
             // User's Current Plants Section
-            Container(
-              height: 200.0,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5, // Number of current plants
-                itemBuilder: (BuildContext context, int index) {
-                  // Replace this with your card for each current plant
-                  return Card(
-                    child: Center(
-                      child: Text('Current Plant $index'),
-                    ),
-                  );
-                },
+            TitledContainer(
+              title: 'Almanac',
+              titleColor: Colors.blue, // Customize the title color
+              fontSize: 18.0, // Customize the title font size
+              backgroundColor:
+                  Colors.white, // Customize the background color of the title
+              textAlign: TextAlign.center, // Align the title text
+              child: Container(
+                height: 200.0,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: plants.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                AlmanacPage(plant: plants[index]),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        child: Center(
+                          child: Text('${plants[index].name}'),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
+
             // Placeholder for other sections
-            Text(
-              'More sections can be added here...',
-              style: TextStyle(fontSize: 18.0),
-            ),
           ],
         ),
       ),
