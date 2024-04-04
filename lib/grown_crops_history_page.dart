@@ -12,7 +12,7 @@ class GrownCropsHistoryPage extends StatelessWidget {
         backgroundColor: Color(0xFF14330A), // Customize the AppBar color
         iconTheme: IconThemeData(color: Color(0xFFE2B358)), // Change back button color to Color(0xFFE2B358)
       ),
-      backgroundColor: Color(0xFFE2B358), // Set the background color of the page to Color(0xFFE2B358)
+      backgroundColor: Colors.white, // Set the background color of the page to white
       body: ListView.builder(
         itemCount: 4, // Replace with the actual number of crops
         itemBuilder: (context, index) {
@@ -20,16 +20,23 @@ class GrownCropsHistoryPage extends StatelessWidget {
             onTap: () {
               _showEnlargedPhoto(context, index);
             },
-            child: ListTile(
-              title: Text(
-                'Crop ${index + 1}',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Customize text style
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              decoration: BoxDecoration(
+                color: Color(0xFFE2B358), // Set background color of the box
+                borderRadius: BorderRadius.circular(10), // Rounded corners
               ),
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage('https://picsum.photos/200'), // Replace with actual image URL
-                radius: 30, // Increase the size of the avatar
+              child: ListTile(
+                title: Text(
+                  'Crop ${index + 1}',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), // Customize text style
+                ),
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage('https://picsum.photos/200'), // Replace with actual image URL
+                  radius: 30, // Increase the size of the avatar
+                ),
+                trailing: Icon(Icons.arrow_forward_ios, color: Color(0xFF14330A)), // Add an arrow icon
               ),
-              trailing: Icon(Icons.arrow_forward_ios, color: Color(0xFF14330A)), // Add an arrow icon
             ),
           );
         },
