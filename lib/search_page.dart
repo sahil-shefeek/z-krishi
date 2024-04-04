@@ -15,12 +15,12 @@ class CommunityPost {
   });
 }
 
-class SearchPage extends StatefulWidget {
+class PostsPage extends StatefulWidget {
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _PostsPageState createState() => _PostsPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _PostsPageState extends State<PostsPage> {
   // Mock list of community posts
   List<CommunityPost> communityPosts = [];
   bool isLoading = false;
