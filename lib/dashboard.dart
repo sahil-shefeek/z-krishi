@@ -202,9 +202,6 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _fetchAndShowCurrentLocation(context));
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome back user!',
@@ -336,29 +333,6 @@ class Dashboard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _fetchAndShowCurrentLocation(BuildContext context) async {
-    try {
-      Position position = await _locationService.getCurrentLocation();
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("Current Location"),
-          content:
-              Text("Lat: ${position.latitude}, Long: ${position.longitude}"),
-          actions: <Widget>[
-            TextButton(
-              child: Text("Close"),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ],
-        ),
-      );
-    } catch (e) {
-      print("Failed to get current location: $e");
-      // Handle error or notify the user
-    }
   }
 
   void _showNotificationsPopover(BuildContext context) {
